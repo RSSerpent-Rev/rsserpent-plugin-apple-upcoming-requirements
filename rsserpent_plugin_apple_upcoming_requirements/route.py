@@ -1,6 +1,6 @@
 from typing import Any, Dict
 import lxml.html
-from rsserpent.utils import HTTPClient, cached
+from rsserpent_rev.utils import HTTPClient, cached
 import lxml
 import arrow
 
