@@ -7,6 +7,7 @@ import arrow
 path = "/apple-upcoming-requirements"
 
 
+@cached
 async def provider() -> Dict[str, Any]:
     async with HTTPClient() as client:
         resp = await client.get('https://developer.apple.com/news/upcoming-requirements/')
