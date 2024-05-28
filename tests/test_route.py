@@ -6,4 +6,4 @@ def test_route(client: TestClient) -> None:
     response = client.get("/apple-upcoming-requirements")
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/xml"
-    assert response.text.count("Example Title") == 1
+    assert response.text.count("Apple developer news - Upcoming requirements") == 1
