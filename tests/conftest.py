@@ -1,6 +1,7 @@
 import pytest
-from rsserpent_rev import app
 from starlette.testclient import TestClient
+
+from rsserpent_rev import app
 
 
 @pytest.fixture(scope="module")
