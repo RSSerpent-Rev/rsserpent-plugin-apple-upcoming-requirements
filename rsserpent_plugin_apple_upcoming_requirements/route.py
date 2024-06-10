@@ -12,23 +12,37 @@ path = "/apple-upcoming-requirements"
 @cached
 async def provider() -> dict[str, Any]:
     async with HTTPClient() as client:
-        resp = await client.get("https://developer.apple.com/news/upcoming-requirements/")
+        resp = await client.get(
+            "https://developer.apple.com/news/upcoming-requirements/"
+        )
         html = lxml.html.fromstring(resp.content.decode())
         # section with class name that contains "article-list"
         article_list = html.xpath('//section[contains(@class, "article-list")]')[0]
         items = []
         for article in article_list.xpath(".//article"):
             # a tag with class is article-title
-            title = article.xpath('.//a[contains(@class, "article-title")]')[0].text_content().strip()
+            title = (
+                article.xpath('.//a[contains(@class, "article-title")]')[0]
+                .text_content()
+                .strip()
+            )
             link = (
                 "https://developer.apple.com"
-                + article.xpath('.//a[contains(@class, "article-title")]')[0].attrib["href"]
+                + article.xpath('.//a[contains(@class, "article-title")]')[0].attrib[
+                    "href"
+                ]
             )
             # span tag with class is article-text
-            description = article.xpath('.//span[contains(@class, "article-text")]')[0].text_content().strip()
+            description = (
+                article.xpath('.//span[contains(@class, "article-text")]')[0]
+                .text_content()
+                .strip()
+            )
             # p tag with class article-date
             article_date = " ".join(
-                article.xpath('.//p[contains(@class, "article-date")]')[0].text_content().split(" ")[1:]
+                article.xpath('.//p[contains(@class, "article-date")]')[0]
+                .text_content()
+                .split(" ")[1:]
             )
             article_date = arrow.get(article_date, "MMMM D, YYYY")
 
